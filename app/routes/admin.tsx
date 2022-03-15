@@ -26,6 +26,8 @@ export default function Admin() {
           ))}
         </ul>
       </nav>
+      <Link to="and/m2">m2</Link>
+      <Link to="other">other</Link>
       <main>
         <Outlet />
       </main>

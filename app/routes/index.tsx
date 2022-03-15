@@ -1,8 +1,19 @@
-import { Link } from "remix";
+import { Outlet, json, Link, useLoaderData } from "remix";
 
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+      <Link to="/admin">Admin</Link>
+      <Link to="/posts">Enviar Msj</Link>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
+
+{
+  /* <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
       <Link to="/posts">Posts</Link>
       <ul>
@@ -30,6 +41,5 @@ export default function Index() {
           </a>
         </li>
       </ul>
-    </div>
-  );
+    </div> */
 }
