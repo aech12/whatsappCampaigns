@@ -9,4 +9,5 @@ node_modules
 /public/build
 /api/index.js
 
+/prisma/dev.db
 /app/tailwind.css
