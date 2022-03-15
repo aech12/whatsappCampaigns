@@ -3,8 +3,8 @@ import { Outlet, json, Link, useLoaderData } from "remix";
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <Link to="/admin">Admin</Link>
-      <Link to="/posts">Enviar Msj</Link>
+      <Link to="app">Icono </Link>
+      <Link to="app2">Icono </Link>
       <main>
         <Outlet />
       </main>
