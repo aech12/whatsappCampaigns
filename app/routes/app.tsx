@@ -12,11 +12,13 @@ export const loader = async () => {
   return json(await getPosts());
 };
 
-export default function Admin() {
+export default function App() {
   const posts = useLoaderData<Post[]>();
   return (
     <div className="admin">
-      <Link to="and/m2">Icono</Link>
+      <Link to="/app">App </Link>
+      <Link to="contactos">Nuevo contacto</Link>
+      <Link to="contactos">Campañas</Link>
       <main>
         <Outlet />
       </main>

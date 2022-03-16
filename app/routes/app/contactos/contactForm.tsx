@@ -1,17 +1,16 @@
-import { json, redirect, Form } from "remix";
-
-import { createPost } from "~/post";
+import { useActionData, Form } from "remix";
 import type { ActionFunction } from "remix";
 
+import { createContact } from "~/contact";
+
 export const action: ActionFunction = async ({ request }) => {
-  console.log("T");
+  console.log("IN FUNC");
   const formData = await request.formData();
 
-  const title = formData.get("title");
-  // const slug = formData.get("slug");
-  // const markdown = formData.get("markdown");
+  const name = formData.get("name"),
+    phone = formData.get("phone");
+  console.log(name, phone);
 
-  console.log("T", title);
   // const errors = {};
   // if (!title) errors.title = true;
   // if (!slug) errors.slug = true;
@@ -22,32 +21,28 @@ export const action: ActionFunction = async ({ request }) => {
 
   // await createPost({ title, slug, markdown });
 
-  return "hi";
   // return redirect("/admin");
+  return 10;
 };
 
-export default function NewPost() {
+export default function ContactForm() {
+  const errors = useActionData();
   return (
     <div>
-      <h2>New Post</h2>{" "}
+      <h2>Nuevo contacto</h2>{" "}
       <Form method="post">
         <p>
           <label>
-            Post Title: <input type="text" name="title" />
+            Nombre: <input type="text" name="name" />
           </label>
         </p>
         <p>
           <label>
-            Post Slug: <input type="text" name="slug" />
+            Numero de telefono: <input type="text" name="phone" />
           </label>
         </p>
         <p>
-          <label htmlFor="markdown">Markdown:</label>
-          <br />
-          <textarea id="markdown" rows={5} name="markdown" />
-        </p>
-        <p>
-          <button type="submit">Create Post</button>
+          <button type="submit">Crear contacto</button>
         </p>
       </Form>
     </div>
