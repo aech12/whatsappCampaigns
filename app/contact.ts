@@ -10,7 +10,7 @@ type LoaderData = Array<{ id: string; name: string; phone: string }>;
 
 export async function getContacts() {
   const data: LoaderData = await db.contact.findMany({
-    take: 5,
+    take: 10,
     select: { id: true, name: true, phone: true },
     orderBy: { createdAt: "desc" },
   });

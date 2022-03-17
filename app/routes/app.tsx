@@ -16,9 +16,10 @@ export default function App() {
   const posts = useLoaderData<Post[]>();
   return (
     <div className="admin">
-      <Link to="/app">App </Link>
-      <Link to="contactos">Nuevo contacto</Link>
-      <Link to="contactos">Campañas</Link>
+      <nav className="flex flex-col">
+        <Link to="enviarMsj">App </Link>
+        <Link to="contactos">Nuevo contacto</Link>
+      </nav>
       <main>
         <Outlet />
       </main>
