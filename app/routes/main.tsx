@@ -2,9 +2,9 @@ import { Outlet, Link } from "remix";
 
 export default function App() {
   return (
-    <div className="flex flex-col m-6">
+    <div className="flex flex-col m-6 bg-gray-300">
       <h1 className="text-xl">App</h1>
-      <div className="flex">
+      <div className="flex my-5">
         <nav className="p-0 flex flex-col justify-center items-center">
           <Link to="enviarMsj">
             <button
