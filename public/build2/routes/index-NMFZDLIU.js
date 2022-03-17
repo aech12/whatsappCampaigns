@@ -1,0 +1,1 @@
+import{f as t,g as e}from"/build/_shared/chunk-TOAMQMCD.js";e();e();function i(){return t.createElement("div",{style:{fontFamily:"system-ui, sans-serif",lineHeight:"1.4"}},"App")}export{i as default};

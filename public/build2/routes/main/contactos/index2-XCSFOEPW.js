@@ -1,0 +1,1 @@
+import{a as t,b as i}from"/build/_shared/chunk-JYFAVROA.js";import{f as o,g as n}from"/build/_shared/chunk-TOAMQMCD.js";n();n();function m(){return o.createElement("div",{className:"admin"},o.createElement(i,{to:"contactForm"},"contactForm "),o.createElement("main",null,o.createElement(t,null)))}export{m as default};

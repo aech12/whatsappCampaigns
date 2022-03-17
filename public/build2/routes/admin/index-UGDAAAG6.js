@@ -1,0 +1,1 @@
+import{b as r}from"/build/_shared/chunk-JYFAVROA.js";import{f as n,g as o}from"/build/_shared/chunk-TOAMQMCD.js";o();o();function e(){return n.createElement("p",null,n.createElement(r,{to:"new"},"Admin page"))}export{e as default};
