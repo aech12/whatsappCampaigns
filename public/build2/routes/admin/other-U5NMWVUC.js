@@ -1,1 +1,0 @@
-import{a as t}from"/build/_shared/chunk-JYFAVROA.js";import{f as r,g as o}from"/build/_shared/chunk-TOAMQMCD.js";o();o();function e(){return r.createElement("div",null,r.createElement("h2",null,"SECONDS"),r.createElement(t,null))}export{e as default};
