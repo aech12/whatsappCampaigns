@@ -6,18 +6,15 @@ export type Contact = {
   phone: string;
 };
 
-type LoaderData = {
-  contactListItems: Array<{ id: string; name: string; phone: string }>;
-};
+type LoaderData = Array<{ id: string; name: string; phone: string }>;
 
 export async function getContacts() {
-  const data: LoaderData = {
-    contactListItems: await db.contact.findMany({
-      take: 5,
-      select: { id: true, name: true, phone: true },
-      orderBy: { createdAt: "desc" },
-    }),
-  };
+  const data: LoaderData = await db.contact.findMany({
+    take: 5,
+    select: { id: true, name: true, phone: true },
+    orderBy: { createdAt: "desc" },
+  });
+  // console.log("d", data);
   return json(data);
 }
 // export async function getPost(slug: Post["slug"]) {
@@ -26,8 +23,7 @@ export async function getContacts() {
 // }
 
 export async function createContact(contact: Contact) {
-  console.log("c", contact);
   const newContact: Contact = await db.contact.create({ data: contact });
-  console.log("c2", newContact);
+  // console.log("createContact", newContact);
   return newContact;
 }

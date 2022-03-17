@@ -12,7 +12,8 @@ type NewContactError = {
 };
 
 export const loader = async () => {
-  return json(await getContacts());
+  console.log("ASC");
+  return await getContacts();
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -39,15 +40,11 @@ export const action: ActionFunction = async ({ request }) => {
 export default function AdminIndex() {
   const errors = useActionData();
   const contacts = useLoaderData<Contact[]>();
+  console.log(contacts);
 
   return (
     <>
       {/* <ContactForm /> */}
-      <div>
-        {contacts.map((contact) => (
-          <p key={contact.phone}>{contact.name}</p>
-        ))}
-      </div>
       <Form method="post">
         <p>
           <label>
@@ -65,6 +62,14 @@ export default function AdminIndex() {
           <button type="submit">Crear contacto</button>
         </p>
       </Form>
+      <div>
+        <p>Contactos:</p>
+        {contacts.map((contact) => (
+          <p key={contact.phone}>
+            {contact.name} {contact.phone}
+          </p>
+        ))}
+      </div>
     </>
   );
 }
