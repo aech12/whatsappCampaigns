@@ -73,11 +73,12 @@ export default function AdminIndex() {
       </div>
       <div>
         <p className="text-lg font-bold">Contactos</p>
-        {contacts.map((contact) => (
-          <p key={contact.phone}>
-            {contact.name} {contact.phone}
-          </p>
-        ))}
+        {contacts.length ??
+          contacts.map((contact) => (
+            <p key={contact.phone}>
+              {contact.name} {contact.phone}
+            </p>
+          ))}
       </div>
     </div>
   );
