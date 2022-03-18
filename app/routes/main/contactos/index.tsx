@@ -2,7 +2,6 @@ import { Form, json, useActionData, useLoaderData } from "remix";
 import type { ActionFunction } from "remix";
 import invariant from "tiny-invariant";
 
-import ContactForm from "./contactForm";
 import { createContact, getContacts } from "~/contact";
 import type { Contact } from "~/contact";
 
@@ -43,33 +42,43 @@ export default function AdminIndex() {
   console.log(contacts);
 
   return (
-    <>
-      {/* <ContactForm /> */}
-      <Form method="post">
-        <p>
-          <label>
-            Nombre: <input type="text" name="name" />
+    <div className="grid md:grid-cols-2">
+      <div>
+        <Form method="post">
+          <p className="text-lg font-bold">Crear nuevo contacto </p>
+          <label className="flex flex-col">
+            <p>Nombre: </p>
+            <input
+              type="text"
+              placeholder=""
+              name="name"
+              className="input p-0 w-full max-w-xs border-gray-400"
+            />
             {errors?.name ? <em>Nombre vacio</em> : null}
           </label>
-        </p>
-        <p>
-          <label>
-            Numero de telefono: <input type="text" name="phone" />
+          <label className="flex flex-col">
+            <p>Numero: </p>
+            <input
+              type="text"
+              placeholder=""
+              name="´phone"
+              className="input p-0 w-full max-w-xs border-gray-400"
+            />
             {errors?.phone ? <em>Numero vacio</em> : null}
           </label>
-        </p>
-        <p>
-          <button type="submit">Crear contacto</button>
-        </p>
-      </Form>
+          <button type="submit" className="btn mt-2 font-bold">
+            Crear contacto
+          </button>
+        </Form>
+      </div>
       <div>
-        <p>Contactos:</p>
+        <p className="text-lg font-bold">Contactos</p>
         {contacts.map((contact) => (
           <p key={contact.phone}>
             {contact.name} {contact.phone}
           </p>
         ))}
       </div>
-    </>
+    </div>
   );
 }

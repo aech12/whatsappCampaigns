@@ -30,14 +30,21 @@ export default function AdminIndex() {
 
   return (
     <Form method="post">
+      <p className="text-lg font-bold">Enviar mensaje (test)</p>
+      <label className="flex flex-col">
+        <p>Numero: </p>
+        <input
+          type="text"
+          placeholder=""
+          name="phone"
+          className="input p-0 w-full max-w-xs border-gray-400"
+        />
+        {errors?.phone ? <em>Numero vacio</em> : null}
+      </label>
       <p>
-        <label>
-          Enviar a: <input type="text" name="phone" />
-          {errors?.phone ? <em>Numero vacio</em> : null}
-        </label>
-      </p>
-      <p>
-        <button type="submit">Enviar</button>
+        <button type="submit" className="btn mt-2">
+          Enviar
+        </button>
       </p>
     </Form>
   );

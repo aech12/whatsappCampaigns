@@ -9,11 +9,6 @@ module.exports = {
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
   ignoredRouteFiles: [".*"],
   // appDirectory: "app",
-  // browserBuildDirectory: "public/build",
-  // publicPath: "/build/",
-  // serverBuildDirectory: "build",
-  // devServerPort: 8002
-  // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "api/index.js",
   // publicPath: "/build/",
