@@ -12,14 +12,15 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model User {
-  id           Int    @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  email        String   @unique
-  passwordHash String
-  contacts     Contact[]
-}
+// model User {
+//   id           Int    @id @default(autoincrement())
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+//   email        String   @unique
+//   passwordHash String
+//   contacts     Contact[]
+// }
+
 model Contact {
   id         Int    @id @default(autoincrement())
   name       String
