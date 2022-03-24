@@ -2,11 +2,9 @@ import { Authenticator, AuthorizationError } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "~/services/session.server";
 import invariant from "tiny-invariant";
-import bcrypt from "bcryptjs";
 
-import { hash, register, login } from "./sign.server";
+import { register, login } from "./sign.server";
 import type { User } from "~/types";
-import { db } from "~/utils/db.server";
 
 let authenticator = new Authenticator<User>(sessionStorage);
 

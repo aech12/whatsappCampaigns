@@ -1,65 +1,51 @@
 import {
-  useActionData,
-  json,
-  useLoaderData,
-  LoaderFunction,
+  Form,
   ActionFunction,
-  redirect,
+  LoaderFunction,
+  ErrorBoundaryComponent,
 } from "remix";
+import authenticator from "~/services/auth.server";
 
-import { db } from "~/utils/db.server";
-import { createSession, register } from "~/services/sign.server";
-
-import RegisterForm from "./RegisterForm";
-
-type LoaderData = Array<{ email: string }>;
-
-export type ActionData = {
-  formError?: string;
-  fieldErrors?: {
-    email: string | undefined;
-    password: string | undefined;
-  };
-  fields?: {
-    email: string;
-    password: string;
-  };
-};
-
-const badRequest = (data: ActionData) => json(data, { status: 400 });
-
-export const action: ActionFunction = async ({ request }) => {
-  const form = await request.formData();
-  const email = form.get("email"),
-    password = form.get("password");
-
-  const fields = { email, password };
-
-  const userExists = await db.user.findFirst({
-    where: { email },
-  });
-  if (userExists) {
-    return badRequest({
-      fields,
-      formError: `User with email ${email} already exists`,
-    });
-  }
-  const user = await register({ email, password });
-  if (!user) {
-    return badRequest({
-      fields,
-      formError: `Something went wrong trying to create a new user.`,
-    });
-  }
-  await createSession(request);
-  return redirect("dashboard");
-};
-
-export default function Register() {
-  const actionData = useActionData<ActionData>();
+function Screen(err?: string) {
   return (
-    <div className="container">
-      <RegisterForm actionData={actionData} />
+    <div>
+      <h1>Register</h1>
+      <Form method="post">
+        <input type="hidden" name="page" value="register" />
+        <input type="email" name="email" placeholder="email" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          autoComplete="current-password"
+        />
+        {err ? <p>{err}</p> : null}
+        <button type="submit">Registrar</button>
+      </Form>
     </div>
   );
 }
+
+export default function ScreenComponent() {
+  return Screen();
+}
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+  return Screen(error.message);
+};
+
+export let action: ActionFunction = async ({ request }) => {
+  // for error handling https://github.com/sergiodxa/remix-auth
+  return await authenticator
+    .authenticate("user-pass", request, {
+      successRedirect: "/dashboard",
+      throwOnError: true,
+    })
+    .then((e) => e);
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+  // If the user is authenticated redirect to /dashboard
+  return await authenticator.isAuthenticated(request, {
+    successRedirect: "/dashboard",
+  });
+};
