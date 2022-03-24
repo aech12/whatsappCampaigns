@@ -33,3 +33,25 @@ export default function App() {
     </html>
   );
 }
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <title>Oops!</title>
+      </head>
+      <body>
+        <div>
+          <h1>App Error</h1>
+          <pre>{error.message}</pre>
+          <p>
+            Error happened. The file is at <code>app/root.tsx</code>.
+          </p>
+        </div>
+
+        <Scripts />
+      </body>
+    </html>
+  );
+}

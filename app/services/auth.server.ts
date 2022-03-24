@@ -1,40 +1,42 @@
-// app/services/auth.server.ts
 import { Authenticator, AuthorizationError } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "~/services/session.server";
 import invariant from "tiny-invariant";
+import bcrypt from "bcryptjs";
 
+import { hash, register, login } from "./sign.server";
 import type { User } from "~/types";
+import { db } from "~/utils/db.server";
 
-// Create an instance of the authenticator, pass a generic with what
-// strategies will return and will store in the session
 let authenticator = new Authenticator<User>(sessionStorage);
 
 authenticator.use(
   new FormStrategy(async ({ form }) => {
-    // Here you can use `form` to access and input values from the form.
-    // and also use `context` to access more things from the server
-    let email = form.get("email"); // or email... etc
-    let password = form.get("password");
+    const email = form.get("email"),
+      password = form.get("password"),
+      page = form.get("page");
 
-    // You can validate the inputs however you want
+    // Validation
     invariant(typeof email === "string", "username must be a string");
     invariant(email.length > 0, "username must not be empty");
     invariant(typeof password === "string", "password must be a string");
     invariant(password.length > 0, "password must not be empty");
 
-    let user = { email: "a@mail.com", token: "asofa" };
+    let user = null;
 
-    // throw new AuthorizationError("Bad Credentials: Email must be a string");
-
-    // // And if you have a password you should hash it
-    // let hashedPassword = await hash(password);
-
-    // // And finally, you can find, or create, the user
-    // let user = await findOrCreateUser(username, hashedPassword);
-
-    // And return the user as the Authenticator expects it
-    return user;
+    switch (page) {
+      case "login": {
+        user = await login(email, password);
+        return user;
+      }
+      case "register": {
+        user = await register(email, password);
+        return user;
+      }
+      default: {
+        throw new AuthorizationError("Wrong format, auth.server");
+      }
+    }
   }),
   "user-pass"
 );

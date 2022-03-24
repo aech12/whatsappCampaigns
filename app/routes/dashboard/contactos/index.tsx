@@ -39,7 +39,6 @@ export const action: ActionFunction = async ({ request }) => {
 export default function AdminIndex() {
   const errors = useActionData();
   const contacts = useLoaderData<Contact[]>();
-  console.log(contacts);
 
   return (
     <div className="grid md:grid-cols-2">
