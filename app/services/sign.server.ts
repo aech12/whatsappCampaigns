@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 import { AuthorizationError } from "remix-auth";
-import authenticator from "~/services/auth.server";
 
 import { db } from "~/utils/db.server";
 
@@ -31,12 +30,4 @@ export async function register(email: string, password: string) {
     data: { email, passwordHash },
   });
   return { id: user.id, email };
-}
-
-export async function createSession(request: any) {
-  return await authenticator.authenticate("user-pass", request, {
-    successRedirect: "/dashboard",
-    failureRedirect: "/registro",
-    throwOnError: true,
-  });
 }

@@ -4,10 +4,10 @@ import NuevaPlantilla from "./nueva-plantilla";
 import { getContacts } from "~/contact";
 import type { Contact } from "~/contact";
 
-export const loader = async () => await getContacts();
+// export const loader = async () => await getContacts();
 
 export default function AdminIndex() {
-  const contacts = useLoaderData<Contact[]>();
+  // const contacts = useLoaderData<Contact[]>();
 
   return (
     <div className="w-full">
@@ -25,9 +25,9 @@ export default function AdminIndex() {
           </p>
         ))} */}
       </div>
-      <main>
+      {/* <main>
         <Outlet />
-      </main>
+      </main> */}
     </div>
   );
 }
