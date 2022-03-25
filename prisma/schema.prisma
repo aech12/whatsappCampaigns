@@ -16,12 +16,31 @@ model User {
   email        String    @unique
   passwordHash String
   contacts     Contact[]
+  campaigns    Campaign[]
+  templates    Template[]
 }
 
 model Contact {
   id     Int    @id @default(autoincrement())
   name   String
   phone  String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Campaign {
+  id     Int    @id @default(autoincrement())
+  name   String
+  type   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Template {
+  id     Int    @id @default(autoincrement())
+  name   String
+  type   String
+  content   String
   user   User   @relation(fields: [userId], references: [id])
   userId Int
 }

@@ -16,12 +16,11 @@ export type Contact = {
 
 export type Campaign = {
   name: string;
-  type: string; // sms/whatsapp
-  content: string;
+  type: "sms" | "whatsapp";
 };
 
 export type Template = {
   name: string;
-  type: string; // sms/whatsapp
+  type: "sms" | "whatsapp";
   content: string;
 };
