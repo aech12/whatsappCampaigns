@@ -1,33 +1,62 @@
-import { useLoaderData, Outlet, Link } from "remix";
+import { useLoaderData, Link, Form, useActionData } from "remix";
+import type { LoaderFunction, ActionFunction } from "remix";
 
-import NuevaPlantilla from "./nueva-plantilla";
-import { getContacts } from "~/contact";
-import type { Contact } from "~/contact";
+import { deleteTemplate, getUserTemplates } from "~/services/template.server";
+import type { Template } from "~/types/index";
 
-// export const loader = async () => await getContacts();
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const { _action, ...values } = Object.fromEntries(formData);
+
+  if (_action === "delete") {
+    return await deleteTemplate(request, Number(values.id));
+  }
+  return 11;
+};
 
 export default function AdminIndex() {
-  // const contacts = useLoaderData<Contact[]>();
+  const errors = useActionData();
+  const templates = useLoaderData<Template[]>();
 
   return (
-    <div className="w-full">
-      <div className="flex w-full justify-between">
-        <p className="text-lg font-bold">Plantillas </p>
-        <Link to="nueva-plantilla">
-          <button className="btn">+ Nueva plantilla</button>
-        </Link>
-      </div>
-      <div>
-        <p className="text-lg font-bold">Lista de plantillas</p>
-        {/* {contacts.map((contact) => (
-          <p key={contact.phone}>
-            {contact.name} {contact.phone}
-          </p>
-        ))} */}
-      </div>
-      {/* <main>
-        <Outlet />
-      </main> */}
+    <div>
+      {errors}
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Contenido</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {templates.length
+            ? templates.map((template: Template) => (
+                <tr key={template.id}>
+                  <td>{template.name}</td>
+                  <td>{template.type}</td>
+                  <td>{template.content}</td>
+                  <td>
+                    <Link to={`editar-plantilla/${template.id}`}>
+                      <button>Editar</button>
+                    </Link>
+                    <Form method="post">
+                      <input type="hidden" name="id" value={template.id} />
+                      <button type="submit" name="_action" value="delete">
+                        Eliminar
+                      </button>
+                    </Form>
+                  </td>
+                </tr>
+              ))
+            : null}
+        </tbody>
+      </table>
     </div>
   );
 }
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return await getUserTemplates(request);
+};

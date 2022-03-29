@@ -4,9 +4,10 @@ import { sessionStorage } from "~/services/session.server";
 import invariant from "tiny-invariant";
 
 import { register, login } from "./sign.server";
-import type { User } from "~/types";
+import type { UserLogin } from "~/types";
 
-let authenticator = new Authenticator<User>(sessionStorage);
+// let authenticator = new Authenticator(sessionStorage);
+let authenticator = new Authenticator<UserLogin>(sessionStorage);
 
 authenticator.use(
   new FormStrategy(async ({ form }) => {
@@ -21,15 +22,15 @@ authenticator.use(
     invariant(password.length > 0, "password must not be empty");
 
     let user = null;
-
     switch (page) {
       case "login": {
         user = await login(email, password);
-        return user;
+        // throw new AuthorizationError("Bad Credentials")
+        return { userId: String(user.id) };
       }
       case "register": {
         user = await register(email, password);
-        return user;
+        return { userId: String(user.id) };
       }
       default: {
         throw new AuthorizationError("Wrong format, auth.server");

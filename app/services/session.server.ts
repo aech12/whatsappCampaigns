@@ -13,5 +13,9 @@ export let sessionStorage = createCookieSessionStorage({
   },
 });
 
+export const getSessionUserId = async (request: Request): Promise<number> => {
+  const session = await getSession(request.headers.get("cookie"));
+  return Number(session.data.user.userId);
+};
 // you can also export the methods individually for your own usage
 export let { getSession, commitSession, destroySession } = sessionStorage;

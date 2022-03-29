@@ -9,19 +9,19 @@ type ContactError = {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
+  // const formData = await request.formData();
 
-  const phone = formData.get("phone");
+  // const phone = formData.get("phone");
 
-  const errors: ContactError = {};
-  if (!phone) errors.phone = true;
-  if (Object.keys(errors).length) {
-    return json(errors);
-  }
-  invariant(typeof phone === "string");
+  // const errors: ContactError = {};
+  // if (!phone) errors.phone = true;
+  // if (Object.keys(errors).length) {
+  //   return json(errors);
+  // }
+  // invariant(typeof phone === "string");
 
-  const b = await sendMsj(phone);
-  console.log("b", b);
+  // const b = await sendMsj(phone);
+  console.log("SEND MSJ");
   return 10;
 };
 

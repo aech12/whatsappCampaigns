@@ -1,11 +1,12 @@
-import { ActionFunction, LoaderFunction, redirect, useLoaderData } from "remix";
+import { ActionFunction, redirect, useLoaderData } from "remix";
+import type { LoaderFunction } from "remix";
 import * as yup from "yup";
 import { validationError, ValidatedForm } from "remix-validated-form";
 import { withYup } from "@remix-validated-form/with-yup";
 
 import MyInput from "~/components/form/input";
 import MySubmitBtn from "~/components/form/submitBtn";
-import { createTemplate } from "~/services/template.server";
+import { editTemplate, getTemplate } from "~/services/template.server";
 
 // Using yup in this example, but you can use anything
 const validator = withYup(
@@ -23,19 +24,9 @@ export const action: ActionFunction = async ({ request }) => {
   // adding next line for typescript, type is guaranteed to be either sms|whatsapp by validator
   if (type !== "sms" && type !== "whatsapp") return "type incorrect";
 
-  const res = await createTemplate(request, { name, type, content });
+  const res = await editTemplate(request, { name, type, content });
   return 10;
   // return redirect("/dashboard/plantillas");
-};
-
-export const loader: LoaderFunction = () => {
-  return {
-    defaultValues: {
-      type: "sms",
-      name: "sms",
-      content: "sms",
-    },
-  };
 };
 
 export default function MyForm() {
@@ -54,3 +45,14 @@ export default function MyForm() {
     </ValidatedForm>
   );
 }
+
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const template = await getTemplate(request, Number(params.templateId));
+  return {
+    defaultValues: {
+      name: template[0].name,
+      type: template[0].type,
+      content: template[0].content,
+    },
+  };
+};

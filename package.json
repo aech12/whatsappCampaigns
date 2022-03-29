@@ -19,6 +19,7 @@
     "@prisma/client": "^3.11.0",
     "@remix-run/react": "^1.2.3",
     "@remix-run/vercel": "^1.2.3",
+    "@remix-validated-form/with-yup": "^2.0.1",
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "daisyui": "^2.11.0",
@@ -27,8 +28,10 @@
     "remix": "^1.2.3",
     "remix-auth": "^3.2.1",
     "remix-auth-form": "^1.1.1",
+    "remix-validated-form": "^4.1.8",
     "tiny-invariant": "^1.2.0",
-    "twilio": "^3.75.1"
+    "twilio": "^3.75.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.2.3",

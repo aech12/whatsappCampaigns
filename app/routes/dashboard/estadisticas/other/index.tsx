@@ -4,10 +4,10 @@ export const action: ActionFunction = async ({ request }) => {
   console.log("REACTION");
   return 10;
 };
-export default function AdminIndex() {
+
+export default function MyForm() {
   return (
     <Form method="post">
-      <p>stats</p>
       <button>Retry</button>
     </Form>
   );
