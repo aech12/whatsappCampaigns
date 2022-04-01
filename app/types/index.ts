@@ -15,7 +15,7 @@ export type UserLogin = {
 export type Contact = {
   name: string;
   phone: string;
-  userId: string;
+  userId: number;
 };
 
 export type Campaign = {

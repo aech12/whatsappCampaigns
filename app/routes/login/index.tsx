@@ -3,25 +3,44 @@ import {
   ActionFunction,
   LoaderFunction,
   ErrorBoundaryComponent,
+  Link,
 } from "remix";
 import authenticator from "~/services/auth.server";
 
 function Screen(err?: string) {
   return (
-    <div>
-      <Form method="post">
-        <input type="hidden" name="page" value="login" />
-        <input type="email" name="email" placeholder="email" required />
+    <Form
+      className="h-screen flex flex-col justify-center items-center"
+      method="post"
+    >
+      <p className="text-lg font-bold underline ">Login Page</p>
+      <input type="hidden" name="page" value="login" />
+      <div className="my-5 flex flex-col">
         <input
+          className="input "
+          type="email"
+          name="email"
+          placeholder="email"
+          required
+        />
+        <input
+          className="input "
           type="password"
           name="password"
           placeholder="password"
           autoComplete="current-password"
         />
-        {err ? <p>{err}</p> : null}
-        <button>Sign In</button>
-      </Form>
-    </div>
+      </div>
+      <div className="flex">
+        <Link to="/registro">
+          <button className="btn btn-outline mx-1">Register</button>
+        </Link>
+        <button className="btn mx-1" type="submit">
+          Login
+        </button>
+      </div>
+      {err ? <p>{err}</p> : null}
+    </Form>
   );
 }
 

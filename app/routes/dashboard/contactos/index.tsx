@@ -1,22 +1,20 @@
 import { Form, json, useActionData, useLoaderData } from "remix";
-import type { ActionFunction } from "remix";
+import type { LoaderFunction, ActionFunction } from "remix";
 import invariant from "tiny-invariant";
 
 import { createContact, getContacts } from "~/contact";
-import type { Contact } from "~/contact";
+import type { Contact } from "~/types/index";
 
 type NewContactError = {
   name?: boolean;
   phone?: boolean;
 };
 
-export const loader = async () => {
-  console.log("ASC");
-  return await getContacts();
+export const loader: LoaderFunction = async ({ request }) => {
+  return await getContacts(request);
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("n");
   const formData = await request.formData();
 
   const name = formData.get("name"),
@@ -31,7 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
   invariant(typeof name === "string");
   invariant(typeof phone === "string");
 
-  await createContact({ name, phone });
+  await createContact(request, { name, phone });
   // redirect("/admin");
   return 10;
 };
@@ -60,7 +58,7 @@ export default function AdminIndex() {
             <input
               type="text"
               placeholder=""
-              name="´phone"
+              name="phone"
               className="input p-0 w-full max-w-xs border-gray-400"
             />
             {errors?.phone ? <em>Numero vacio</em> : null}
@@ -72,12 +70,15 @@ export default function AdminIndex() {
       </div>
       <div>
         <p className="text-lg font-bold">Contactos</p>
-        {contacts.length ??
+        {contacts.length ? (
           contacts.map((contact) => (
             <p key={contact.phone}>
               {contact.name} {contact.phone}
             </p>
-          ))}
+          ))
+        ) : (
+          <p>No contacts</p>
+        )}
       </div>
     </div>
   );
