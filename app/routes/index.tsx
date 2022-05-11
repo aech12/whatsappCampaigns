@@ -4,7 +4,7 @@ export default function Index() {
     <div className="p-5">
       <p className="font-bold underline">Whatsapp Campaigns App</p>
       <p className="p-5 my-5 bg-red-400 text-white text-lg">
-        This app is unfinished. The client did not contact me anymore.
+        This app is unfinished. I was competing with other freelancers. However, it's a good Remix starter!
       </p>
       <p>
         Login and backend functionality will continue to work for some time.
